@@ -33,7 +33,7 @@ function Header() {
             <p className='font-extrabold md:text-sm'>& Orders</p>
           </div>
           <div className='relaative flex items-center cursor-pointer hover:underline'>
-            <span className='absolute top-4 right-4 md:top-3 md:right-16  h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold'>4</span>
+            <span className='absolute top-4 right-4 md:top-3 md:right-16  h-4 w-4 bg-emerald-600 text-center rounded-full text-white font-bold'>4</span>
             <ShoppingCartIcon className='h-10'/>
             <p className='hidden md:inline mt-2 font-extrabold md:text-sm'>Basket</p>
           </div>
@@ -41,7 +41,21 @@ function Header() {
         </div>
       </div>
       {/* bottom nav */}
-      <div></div>
+      <div className='flex items-center bg-amazon_blue-light space-x-3 p-2 pl-6 text-white text-sm'>
+        <p className='font-extrabold md:text-sm flex items-center'>
+          <Bars3Icon className='h-6 mr-1'/>
+          All
+        </p>
+        <p className='font-extrabold md:text-sm cursor-pointer'>Prime Video</p>
+        <p className='font-extrabold md:text-sm cursor-pointer'>Duka Business</p>
+        <p className='font-extrabold md:text-sm cursor-pointer'>Today's Deals</p>
+        <p className='hidden lg:inline-flex font-extrabold md:text-sm cursor-pointer'>Electronics</p>
+        <p className='hidden lg:inline-flex font-extrabold md:text-sm cursor-pointer'>Food & Grocery</p>
+        <p className='hidden lg:inline-flex font-extrabold md:text-sm cursor-pointer'>Prime</p>
+        <p className='hidden lg:inline-flex font-extrabold md:text-sm cursor-pointer'>Buy Again</p>
+        <p className='hidden lg:inline-flex font-extrabold md:text-sm cursor-pointer'>Shopper Toolkit</p>
+        <p className='hidden lg:inline-flex font-extrabold md:text-sm cursor-pointer'>Health & Personal Care</p>
+      </div>
     </header>
   )
 }
