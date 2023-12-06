@@ -1,8 +1,14 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
 import {  StarIcon  } from '@heroicons/react/24/solid'
-function Product({id,title,price,category,image}) {
-    const [rating] = useState(2)
+import CurrencyFormat from 'react-currency-format';
+const MAX_RATING = 5;
+const MIN_RATING = 1;
+function Product({id,title,price,description,category,image}) {
+    const [rating] = useState(
+        Math.floor(Math.random() * (MAX_RATING -MIN_RATING + 1)) + MIN_RATING
+    )
+    const [hasPrime] = useState(Math.random() < 0.5)
   return (
     <div>
         <p>{category}</p>
@@ -21,6 +27,17 @@ function Product({id,title,price,category,image}) {
         
         </div>
         
+        <p>{description}</p>
+        <div>
+            <CurrencyFormat quantity={price} CurrencyFormat="ksh" />
+        </div>
+        {hasPrime && (
+            <div>
+                <img src="https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/052018/untitled-1_282.png?zBgfG0XEfdsPUq33GRuhu6udfY3Yu_rs&itok=39OQ7JCF" alt="" />
+                <p>Free next-day delivery</p>
+            </div>
+        )}
+        <button>Add to Basket</button>
     </div>
   )
 }
