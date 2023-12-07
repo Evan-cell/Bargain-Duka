@@ -1,15 +1,20 @@
 import Image from 'next/image'
 import React from 'react'
 import { MagnifyingGlassIcon,Bars3Icon, ShoppingCartIcon,ShoppingBagIcon} from '@heroicons/react/24/solid'
-import { } from '@heroicons/react/24/outline'
 
+import { useSession, signIn, signOut } from "next-auth/react"
+import {  Router,useRouter} from 'next/router'
 function Header() {
+  const { data: session } = useSession();
+  const router = useRouter()
+  
   return (
     <header>
       {/* top nav */}
       <div className='flex items-center bg-amazon_blue-light p-1 flex-grow py-2'>
         <div className='mt-2 flex items-center flex-grow sm:flex-grow-0'>
           <Image
+          onClick={()=>router.push('/')}
           src="https://www.svgrepo.com/show/217771/shopping-logo.svg"
           width={150}
           height={40}
@@ -24,15 +29,18 @@ function Header() {
         </div>
         {/* right */}
         <div className='text-white flex items-center text-xs space-x-6 mx-6 whitespace-nowrap'>
-          <div className='cursor-pointer hover:underline'>
-            <p>Hello Evan</p>
+          <div onClick={!session ? signIn : signOut} className='cursor-pointer hover:underline'>
+            <p>
+              {session ? `Hello, ${session.user.name}`: 'Sign In'}
+            </p>
             <p className='font-extrabold md:text-sm'>Account & Lists</p>
           </div>
           <div className='cursor-pointer hover:underline'>
             <p>Returns</p>
             <p className='font-extrabold md:text-sm'>& Orders</p>
           </div>
-          <div className='relaative flex items-center cursor-pointer hover:underline'>
+          <div onClick={()=>router.push('/checkout')} className='relaative flex items-center cursor-pointer hover:underline'>
+          
             <span className='absolute top-4 right-4 md:top-3 md:right-16  h-4 w-4 bg-emerald-600 text-center rounded-full text-white font-bold'>4</span>
             <ShoppingCartIcon className='h-10'/>
             <p className='hidden md:inline mt-2 font-extrabold md:text-sm'>Basket</p>
