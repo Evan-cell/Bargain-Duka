@@ -14,15 +14,27 @@ function Checkout() {
     const items = useSelector(selectItems)
     const session = useSession()
     const total = useSelector(selectTotal)
-    const checkoutSession = async () =>{
+    const checkoutSession = async () => {
         const stripe = await stripePromise;
-        const checkoutSession = await axios.post('/api/create-checkout-session',
-        {
-            items:items,
-            email:session.user.email
-        })
-
-    }
+      
+        try {
+          const response = await axios.post('/api/create-checkout-session', {
+            items: items,
+            email: session.data.user.email, // Use session.data.user.email instead of session.user.email
+          });
+      
+          const result = await stripe.redirectToCheckout({
+            sessionId: response.data.id,
+          });
+      
+          if (result.error) {
+            alert(result.error.message);
+          }
+        } catch (error) {
+          console.error('Error creating checkout session:', error);
+        }
+      };
+      
   return (
     <div className='bg-gray-100'>
         <Header/>
