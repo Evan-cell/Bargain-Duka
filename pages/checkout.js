@@ -1,15 +1,28 @@
 import CheckoutProduct from '@/components/CheckoutProduct'
 import Header from '@/components/Header'
 import { selectItems, selectTotal } from '@/slices/basketSlice'
+import { loadStripe } from '@stripe/stripe-js'
+import axios from 'axios'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import React from 'react'
 import { useSelector } from 'react-redux'
 
+const stripePromise = loadStripe(process.env.stripe_public_key)
+
 function Checkout() {
     const items = useSelector(selectItems)
     const session = useSession()
     const total = useSelector(selectTotal)
+    const checkoutSession = async () =>{
+        const stripe = await stripePromise;
+        const checkoutSession = await axios.post('/api/create-checkout-session',
+        {
+            items:items,
+            email:session.user.email
+        })
+
+    }
   return (
     <div className='bg-gray-100'>
         <Header/>
@@ -52,7 +65,7 @@ function Checkout() {
                         Subtotal ({items.length} items:)
                     <span className='font-bold'>${total}</span>
                     </h2>
-                    <button disabled={!session} className={`button mt-2 ${!session && 'from-gray-300 to gray-500 border-gray-200 cursor-not-allowed'}`}>
+                    <button onClick={checkoutSession} role='link' disabled={!session} className={`button mt-2 ${!session && 'from-gray-300 to gray-500 border-gray-200 cursor-not-allowed'}`}>
                         {!session ? "Sign In to Checkout " : "Proceed to Checkout"}
                     </button>
                     </>
