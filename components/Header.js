@@ -25,6 +25,7 @@ function Header() {
           className='cursor-pointer h-10 w-16'
           alt=''
           />
+          <p className='text-white font-semibold mr-3'>Bargain Duka</p>
         </div>
         {/* search */}
         <div className='hidden sm:flex items-center h-10 rounded-md flex-grow cursor-pointer bg-emerald-600 hover:bg-emerald-500'>
