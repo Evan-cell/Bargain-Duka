@@ -10,7 +10,7 @@ export const authOptions = {
     }),
     // ...add more providers here
   ],
-  secret: process.env.SECRET // To be added
+  secret: process.env.SECRET || "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",
 }
 
 export default NextAuth(authOptions)
